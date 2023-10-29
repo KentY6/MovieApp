@@ -1,2 +1,19 @@
-<h1>Movies#index</h1>
-<p>Find me in app/views/movies/index.html.erb</p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieS App</title>
+</head>
+<body>
+    <h1>Movie App</h1>
+    <div>
+        <% @movies['results'].each do |movie| %>
+            <div><%= movie['title'] %></div>
+            <img src="https://image.tmdb.org/t/p/w200<%= movie['poster_path'] %>" >
+            <div><%= movie['overview'] %></div>
+        <% end %>
+    </div>
+    <%= debug @movies %>
+</body>
+</html>
