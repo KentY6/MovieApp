@@ -1,2 +1,36 @@
-<h1>Movies#show</h1>
-<p>Find me in app/views/movies/show.html.erb</p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <title>Movies App</title>
+</head>
+<body>
+    <%= render partial: 'layouts/header' %>
+    <div class="container>
+        <div class="row">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="col-md-6 my-4">
+                    <div class="text-center h2">
+                        <%= @movie['title'] %>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img src="https://image.tmdb.org/t/p/w200<%= @movie['poster_path'] %>" class="rounded">
+                    </div>
+                    <div class="h5 text-center mt-4">
+                        あらすじ
+                    </div>
+                    <div class="text-center m-4">
+                        <%= @movie['overview'] %>
+                    </div>
+                    <div class="m-4">
+                        <%= link_to "ホームへ戻る", movies_path %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
