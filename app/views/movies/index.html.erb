@@ -8,10 +8,13 @@
     <title>MovieS App</title>
 </head>
 <body>
+    <%= render partial: 'layouts/header' %> 
     <div class="container">
         <div class="row d-flex flex-column justify-content-center align-items-center">
-            <div id="carouselExampleRide" class="carousel slide col-md-4" data-bs-ride="true">
-                <h2 class="text-center">注目のタイトル</h2>
+            <h2 class="text-center my-4">注目のタイトル</h2>
+
+            <!-- カルーセル --!>
+            <div id="carouselExampleRide" class="carousel slide col-md-3" data-bs-ride="true">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="https://image.tmdb.org/t/p/w200<%= @movies['results'][0]['poster_path'] %>" class="d-block w-100">
