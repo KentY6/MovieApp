@@ -4,8 +4,9 @@
             <a class="navbar-brand text-light">
                 Movie App
             </a>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="タイトルを入力" aria-label="Search">
+            <form method="post" class="d-flex" role="search" action="/search">
+            <!-- inputのnameで指定した単語をコントローラーで受け取る --!>
+                <input class="form-control me-2" name="text" type="search" placeholder="タイトルを入力" aria-label="Search">
                 <button class="btn btn-outline-danger" type="submit">Search</button>
             </form>
         </div>

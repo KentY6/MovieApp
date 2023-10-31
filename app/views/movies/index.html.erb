@@ -14,17 +14,17 @@
             <h2 class="text-center my-4">注目のタイトル</h2>
 
             <!-- カルーセル --!>
-            <div id="carouselExampleRide" class="carousel slide col-md-3" data-bs-ride="true">
+            <div id="carouselExampleRide" class="carousel slide col-md-4" data-bs-ride="true">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <%= link_to movie_path(@movies[0]['id']) do %>
-                            <img src="https://image.tmdb.org/t/p/w200<%= @movies[0]['poster_path'] %>" class="d-block w-100 rounded">
+                            <img src="https://image.tmdb.org/t/p/w342<%= @movies[0]['poster_path'] %>" class="d-block w-100 rounded">
                         <% end %>
                     </div>
                     <% @movies.drop(1).each do |movie| %>
                     <div class="carousel-item">
                         <%= link_to movie_path(movie['id']) do %>
-                            <img src="https://image.tmdb.org/t/p/w200<%= movie['poster_path'] %>" class="d-block w-100 rounded">
+                            <img src="https://image.tmdb.org/t/p/w342<%= movie['poster_path'] %>" class="d-block w-100 rounded">
                         <% end %>
                     </div>
                     <% end %>
