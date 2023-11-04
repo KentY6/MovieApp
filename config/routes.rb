@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get '', to: 'movies#index'
-  get 'movie/:id', to: 'movies#show'
   post '/search' , to: 'movies#search'
+  get 'category/:id/:name', to: 'movies#category', as: 'movies_category'
   resources :movies
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

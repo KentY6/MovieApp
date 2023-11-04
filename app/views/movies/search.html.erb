@@ -12,7 +12,7 @@
     <div class="container mt-4 d-flex align-items-center justify-content-center">
         <div class="row d-flex justify-content-center align-items-center">
             <% @movies.each do |movie| %>
-                <%= link_to movie_path(movie['id']), class: 'col-md-3' do %>
+                <%= link_to movie_path(movie), class: 'col-md-3' do %>
                     <div class="m-2">
                         <img src="https://image.tmdb.org/t/p/w342<%= movie['poster_path'] %>" class="rounded w-100">
                     </div>
