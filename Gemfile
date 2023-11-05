@@ -70,3 +70,5 @@ end
 gem 'dotenv-rails'
 
 gem 'httpclient'
+
+gem 'devise'

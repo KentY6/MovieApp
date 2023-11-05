@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get '', to: 'movies#index'
   post '/search' , to: 'movies#search'
   get 'category/:id/:name', to: 'movies#category', as: 'movies_category'
