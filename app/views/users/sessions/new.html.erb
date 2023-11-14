@@ -1,26 +1,47 @@
-<h2>Log in</h2>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <title>Movie App</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row d-flex flex-column justify-content-center align-items-center">
+      <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center my-4">ログイン</h3>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "col-md-6"}) do |f| %>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <div class="field my-2 h5">
+              <%= f.label :メールアドレス, class: "my-1" %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-100 p-1" %>
+            </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+            <div class="field my-2 h5">
+              <%= f.label :パスワード, class: "my-1" %><br />
+              <%= f.password_field :password, autocomplete: "current-password", class: "w-100 p-1" %>
+            </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+            <% if devise_mapping.rememberable? %>
+              <div class="field my-4">
+                <%= f.check_box :remember_me %>
+                <%= f.label :ログインしたままにする %>
+              </div>
+            <% end %>
+
+            <div class="actions my-2 h5 text-center">
+              <%= f.submit "ログイン", class: "btn btn-primary w-100" %>
+            </div>
+        <% end %>
+        <div class="mt-4 col-md-6">
+          <%= link_to "アカウント登録", new_user_registration_path %>
+        </div>
+
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</body>
+</html>

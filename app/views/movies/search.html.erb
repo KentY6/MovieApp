@@ -7,17 +7,56 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
-<body>
+<body>  
     <%= render partial: 'layouts/header' %>
-    <div class="container mt-4 d-flex align-items-center justify-content-center">
-        <div class="row d-flex justify-content-center align-items-center">
-            <% @movies.each do |movie| %>
-                <%= link_to movie_path(movie), class: 'col-md-3' do %>
-                    <div class="m-2">
-                        <img src="https://image.tmdb.org/t/p/w342<%= movie['poster_path'] %>" class="rounded w-100">
+    <div class="container-fluid m-0 p-0">
+        <div class="row">
+            <div class="col-2 d-none d-md-block">
+                <%= render partial: 'layouts/sidebar', categories: @categories %> 
+            </div>
+            <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">
+                <div class="h3 m-4">
+                    <%= @search_word %>の検索結果：<%= @results_length %>件
+                </div>
+
+                <!-- モバイル設定 --!>
+                <!-- カルーセル --!>
+                <div id="carouselExampleRide" class="d-md-none carousel slide col-md-4" data-bs-ride="true d-flex justify-content-center align-items-center">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <%= link_to movie_path(@movies[0]['id']) do %>
+                                <img src="https://image.tmdb.org/t/p/w342<%= @movies[0]['poster_path'] %>" class="d-block rounded">
+                            <% end %>
+                        </div>
+                        <% @movies.drop(1).each do |movie| %>
+                        <div class="carousel-item">
+                            <%= link_to movie_path(movie['id']) do %>
+                                <img src="https://image.tmdb.org/t/p/w342<%= movie['poster_path'] %>" class="d-block rounded">
+                            <% end %>
+                        </div>
+                        <% end %>
                     </div>
-                <% end %>
-            <% end %>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <!-- ここまでがカルーセル --!>
+
+                <div class="d-none d-md-flex col-md-10 justify-content-center align-items-center flex-wrap">
+                    <% @movies.each do |movie| %>
+                        <%= link_to movie_path(movie['id']), class: 'col-md-3' do %>
+                            <div class="m-2">
+                                <img src="https://image.tmdb.org/t/p/w342<%= movie['poster_path'] %>" class="rounded w-100">
+                            </div>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
         </div>
     </div>  
 </body>

@@ -11,7 +11,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    super do |resource|
+      if resource.persisted?
+        puts = "アカウント登録が完了しました"
+      else
+        puts = "アカウント登録に失敗しました"
+      end
+    end
   end
 
   # GET /resource/edit

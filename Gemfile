@@ -72,3 +72,5 @@ gem 'dotenv-rails'
 gem 'httpclient'
 
 gem 'devise'
+
+gem 'pry-rails'
