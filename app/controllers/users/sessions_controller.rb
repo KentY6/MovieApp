@@ -12,6 +12,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     super do |resource|
       if resource.persisted?
+        flash[:notice] = "ログインに成功しました"
         puts "ログインに成功しました"
       else
         puts "ログインに失敗しました"
@@ -22,6 +23,7 @@ class Users::SessionsController < Devise::SessionsController
   # DELETE /resource/sign_out
   def destroy
     super
+    flash[:notice] = "ログアウトに成功しました"
   end
 
   protected

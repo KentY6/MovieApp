@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -13,6 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super do |resource|
       if resource.persisted?
+        flash[:notice] = "アカウント登録が完了しました"
         puts = "アカウント登録が完了しました"
       else
         puts = "アカウント登録に失敗しました"
@@ -31,9 +30,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+      if resource.persisted?
+        super
+        flash[:notice] = "アカウント削除が完了しました"
+      else
+        flash[:alert] = "アカウント削除に失敗しました"
+      end
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
