@@ -4,6 +4,12 @@ class MoviesController < ApplicationController
 
   APIURL = "https://api.themoviedb.org/3/"
 
+  # カテゴリー項目取得
+  Client = HTTPClient.new
+  CategoriesUrl = "#{APIURL}genre/movie/list?api_key=#{ENV['API_KEY']}&language=ja"
+  CategoriesResponce = Client.get(CategoriesUrl)
+  CategoriesRes_json = JSON.parse(CategoriesResponce.body)
+
   def index
     client = HTTPClient.new
     apiUrl = "#{APIURL}movie/popular?api_key=#{ENV['API_KEY']}&language=ja"
@@ -11,11 +17,7 @@ class MoviesController < ApplicationController
     res_json = JSON.parse(responce.body)
     @movies = res_json['results']
 
-    categoriesUrl = "#{APIURL}genre/movie/list?api_key=#{ENV['API_KEY']}&language=ja"
-    categoriesResponce = client.get(categoriesUrl)
-    categoriesRes_json = JSON.parse(categoriesResponce.body)
-    @categories = categoriesRes_json['genres']
-
+    @categories = CategoriesRes_json['genres']
   end
 
   def show
@@ -24,6 +26,9 @@ class MoviesController < ApplicationController
     responce = client.get(apiUrl)
     res_json = JSON.parse(responce.body)
     @movie = res_json
+
+    @is_favorite = current_user.favorites.find_by(movie_id: @movie["id"]).present?
+    @categories = CategoriesRes_json['genres']
   end
 
   def search
@@ -35,10 +40,7 @@ class MoviesController < ApplicationController
     @movies = res_json['results']
     @results_length = @movies.length
 
-    categoriesUrl = "#{APIURL}genre/movie/list?api_key=#{ENV['API_KEY']}&language=ja"
-    categoriesResponce = client.get(categoriesUrl)
-    categoriesRes_json = JSON.parse(categoriesResponce.body)
-    @categories = categoriesRes_json['genres']
+    @categories = CategoriesRes_json['genres']
   end
 
   def category
@@ -49,10 +51,50 @@ class MoviesController < ApplicationController
     @movies = res_json['results']
     @categoryName = params[:name]
 
-    categoriesUrl = "#{APIURL}genre/movie/list?api_key=#{ENV['API_KEY']}&language=ja"
-    categoriesResponce = client.get(categoriesUrl)
-    categoriesRes_json = JSON.parse(categoriesResponce.body)
-    @categories = categoriesRes_json['genres']
-
+    @categories = CategoriesRes_json['genres']
   end
+
+  def favorite
+    head :no_content
+    @movie = params[:movie]
+    if favorite_exists?(@movie)
+      @favorite = Favorite.find_by(movie_id: @movie["id"])
+      @favorite.destroy
+      flash[:notice] = "お気に入りから削除しました。"
+      redirect_to movies_path
+    else
+      @favorite = Favorite.new(
+        movie_title: @movie["title"],
+        movie_id: @movie["id"].to_i,
+        movie_overview: @movie["overview"],
+        movie_poster_path: @movie["poster_path"],
+        user_id: current_user.id
+      )
+
+      if @favorite.save
+        flash[:notice] = "お気に入りに追加しました。"
+      else
+        flash[:alert] = "お気に入りに追加できませんでした。"
+        logger.debug(@favorite.errors.full_messages) 
+      end
+    end
+  end
+
+  def favorites_list
+    @favorites = current_user.favorites
+    @categories = CategoriesRes_json['genres']
+  end
+
+  def destroy
+    @favorite = Favorite.find_by(movie_id: params[:movie]["id"])
+    @favorite.destroy
+    
+    redirect_to movies_path, notice: "お気に入りから削除しました。"  
+  end
+
+  private
+    def favorite_exists?(movie)
+      current_user.favorites.find_by(movie_id: movie["id"]).present? 
+    end
+
 end

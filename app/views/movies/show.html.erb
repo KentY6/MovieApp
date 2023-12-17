@@ -5,13 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <script src="https://kit.fontawesome.com/a4c9769cfc.js" crossorigin="anonymous"></script>
     <title>Movies App</title>
 </head>
 <body>
     <%= render partial: 'layouts/header' %>
-    <div class="container>
+    <div class="container-fluid m-0 p-0">
         <div class="row">
-            <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="col-2 d-none d-md-block">
+                <%= render partial: 'layouts/sidebar', categories: @categories %> 
+            </div>
+            
+            <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">
+                <% if flash[:notice]  %>
+                    <div class="alert alert-primary m-4" role="alert">
+                        <%= flash[:notice] %>
+                    </div>
+                <% end %>
+                <% if flash[:alert]  %>
+                    <div class="alert alert-danger m-4" role="alert">
+                        <%= flash[:alert] %>
+                    </div>
+                <% end %>
+
                 <div class="col-md-6 my-4">
                     <div class="text-center h2">
                         <%= @movie['title'] %>
@@ -25,6 +42,19 @@
                     <div class="text-center m-4">
                         <%= @movie['overview'] %>
                     </div>
+                    <% if user_signed_in? %>
+                        <div>
+                            <% if @is_favorite %>
+                                <%= link_to favorite_path(movie: @movie), method: :delete do %>
+                                    削除
+                                <% end %> 
+                            <% else %>
+                                <%= link_to favorite_path(movie: @movie) do %>
+                                    保存
+                                <% end %>
+                            <% end %>
+                        </div>
+                    <% end %>
                     <div class="m-4">
                         <%= link_to "ホームへ戻る", movies_path %>
                     </div>

@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get '/', to: 'movies#index'
   post '/search' , to: 'movies#search'
   get 'category/:id/:name', to: 'movies#category', as: 'movies_category'
+  get 'favorite', to: 'movies#favorite'
+  get 'favorites_list', to: 'movies#favorites_list'
+
+
   resources :movies
 
   devise_scope :user do

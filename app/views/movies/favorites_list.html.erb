@@ -29,7 +29,7 @@
                 <% end %>
 
                 <div class="h3 my-4">
-                    注目のタイトル
+                    マイリスト
                 </div>
                 
                 <!-- モバイル設定 --!>
@@ -37,14 +37,14 @@
                 <div id="carouselExampleRide" class="d-md-none carousel slide col-md-4" data-bs-ride="true">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <%= link_to movie_path(@movies[0]['id']) do %>
-                                <img src="https://image.tmdb.org/t/p/w342<%= @movies[0]['poster_path'] %>" class="d-block rounded">
+                            <%= link_to movie_path(@favorites[0]['movie_id']) do %>
+                                <img src="https://image.tmdb.org/t/p/w342<%= @favorites[0]['movie_poster_path'] %>" class="d-block rounded">
                             <% end %>
                         </div>
-                        <% @movies.drop(1).each do |movie| %>
+                        <% @favorites.drop(1).each do |movie| %>
                             <div class="carousel-item">
                                 <%= link_to movie_path(movie['id']) do %>
-                                    <img src="https://image.tmdb.org/t/p/w342<%= movie['poster_path'] %>" class="d-block rounded">
+                                    <img src="https://image.tmdb.org/t/p/w342<%= movie['movie_poster_path'] %>" class="d-block rounded">
                                 <% end %>
                             </div>
                         <% end %>
@@ -61,10 +61,10 @@
                 <!-- ここまでがカルーセル --!>
 
                 <div class="d-none d-md-flex col-md-10 justify-content-center align-items-center flex-wrap">
-                    <% @movies.each do |movie| %>
-                        <%= link_to movie_path(movie['id']), class: 'col-md-3' do %>
+                    <% @favorites.each do |movie| %>
+                        <%= link_to movie_path(movie['movie_id']), class: 'col-md-3' do %>
                             <div class="m-2">
-                                <img src="https://image.tmdb.org/t/p/w342<%= movie['poster_path'] %>" class="rounded w-100">
+                                <img src="https://image.tmdb.org/t/p/w342<%= movie['movie_poster_path'] %>" class="rounded w-100">
                             </div>
                         <% end %>
                     <% end %>

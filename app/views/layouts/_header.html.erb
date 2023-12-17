@@ -14,7 +14,11 @@
                     <i class="fa-solid fa-user fa-lg" style="color: #f5f5f5;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li class="mx-3">マイリスト</li>
+                    <% if user_signed_in? %>
+                        <li>
+                            <%= link_to "マイリスト", favorites_list_path, class: "text-decoration-none dropdown-item" %>
+                        </li>
+                    <% end %>
                     <li>
                         <% if user_signed_in? %>
                             <%= link_to "ログアウト", logout_path, class: "text-decoration-none dropdown-item" %> 
