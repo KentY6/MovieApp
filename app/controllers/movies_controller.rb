@@ -27,7 +27,9 @@ class MoviesController < ApplicationController
     res_json = JSON.parse(responce.body)
     @movie = res_json
 
-    @is_favorite = current_user.favorites.find_by(movie_id: @movie["id"]).present?
+    if user_signed_in?
+      @is_favorite = current_user.favorites.find_by(movie_id: @movie["id"]).present?
+    end
     @categories = CategoriesRes_json['genres']
   end
 
@@ -55,8 +57,10 @@ class MoviesController < ApplicationController
   end
 
   def favorite
-    head :no_content
+    #head :no_content
     @movie = params[:movie]
+    @categories = CategoriesRes_json['genres']
+
     if favorite_exists?(@movie)
       @favorite = Favorite.find_by(movie_id: @movie["id"])
       @favorite.destroy
@@ -70,9 +74,10 @@ class MoviesController < ApplicationController
         movie_poster_path: @movie["poster_path"],
         user_id: current_user.id
       )
+      redirect_to movies_path
 
       if @favorite.save
-        flash[:notice] = "お気に入りに追加しました。"
+        flash[:notice] = "#{@movie["title"]}をお気に入りに追加しました。"
       else
         flash[:alert] = "お気に入りに追加できませんでした。"
         logger.debug(@favorite.errors.full_messages) 

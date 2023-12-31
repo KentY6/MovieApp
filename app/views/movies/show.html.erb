@@ -36,27 +36,38 @@
                     <div class="d-flex justify-content-center align-items-center">
                         <img src="https://image.tmdb.org/t/p/w342<%= @movie['poster_path'] %>" class="rounded">
                     </div>
-                    <div class="h5 text-center mt-4">
-                        あらすじ
-                    </div>
-                    <div class="text-center m-4">
-                        <%= @movie['overview'] %>
-                    </div>
-                    <% if user_signed_in? %>
-                        <div>
-                            <% if @is_favorite %>
-                                <%= link_to favorite_path(movie: @movie), method: :delete do %>
-                                    削除
-                                <% end %> 
-                            <% else %>
-                                <%= link_to favorite_path(movie: @movie) do %>
-                                    保存
-                                <% end %>
-                            <% end %>
+                    <% if @movie['overview'].length != 0 %>
+                        <div class="h5 text-center my-4">
+                            あらすじ
+                        </div>
+                        <div class="text-center m-4">
+                            <%= @movie['overview'] %>
                         </div>
                     <% end %>
-                    <div class="m-4">
-                        <%= link_to "ホームへ戻る", movies_path %>
+                    <div class="d-flex m-4">
+                        <div class="m-1">
+                            <%= link_to movies_path do %>
+                                <i class="fa-solid fa-arrow-left-long"></i>
+                            <% end %>
+                        </div>
+                        <div>
+                            <a href="https://www.amazon.co.jp/s?k=<%= @movie['title'] %>&i=instant-video" target="_blank" class="btn btn-warning mx-4">
+                                Prime Video
+                            </a>
+                        </div>
+                        <% if user_signed_in? %>
+                            <div class="m-1">
+                                <% if @is_favorite %>
+                                    <%= link_to favorite_path(movie: @movie), method: :delete do %>
+                                        <i class="fa-solid fa-heart"></i>
+                                    <% end %> 
+                                <% else %>
+                                    <%= link_to favorite_path(movie: @movie) do %>
+                                        <i class="fa-regular fa-heart"></i>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        <% end %>
                     </div>
                 </div>
             </div>

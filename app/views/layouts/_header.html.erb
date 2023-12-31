@@ -1,9 +1,9 @@
 <header>
     <nav class="navbar bg-dark">
         <div class="container-fluid">
-            <a src="/" class="navbar-brand text-light">
-                Movie App
-            </a>
+            <!-- タイトル --!>
+            <%= link_to "Movie App", "/" , class: "text-decoration-none text-light" %>
+
             <form method="post" class="d-flex" role="search" action="/search">
             <!-- inputのnameで指定した単語をコントローラーで受け取る --!>
                 <input class="form-control me-2" name="text" type="search" placeholder="タイトルを入力" aria-label="Search">
