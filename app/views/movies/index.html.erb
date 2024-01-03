@@ -10,10 +10,12 @@
     <title>Document</title>
 </head>
 <body>  
-    <%= render partial: 'layouts/header' %>
-    <div class="container-fluid m-0 p-0">
+    <div class="container-fluid p-0">
+        <%= render partial: 'layouts/header' %>
+    </div>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-2 d-none d-md-block">
+            <div class="col-2 d-none d-md-block m-0 p-0">
                 <%= render partial: 'layouts/sidebar', categories: @categories %> 
             </div>
             <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">

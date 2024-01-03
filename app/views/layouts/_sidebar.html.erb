@@ -2,7 +2,7 @@
         <ul class="p-0 bg-dark text-danger">
             <% @categories.each do |category| %>
                 <%= link_to movies_category_path(id: category['id'], name: category['name']), style: "text-decoration: none;" do %>
-                    <li class="list-unstyled border p-2">
+                    <li class="list-unstyled border p-2 text-light">
                         <%= category['name'] %>
                     </li>
                 <% end %>
