@@ -14,11 +14,11 @@
         <%= render partial: 'layouts/header' %>
     </div>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row d-flex">
             <div class="col-2 d-none d-md-block m-0 p-0">
                 <%= render partial: 'layouts/sidebar', categories: @categories %> 
             </div>
-            <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">
+            <div class="col-md-10 d-flex flex-column align-items-center">
                 <% if flash[:notice]  %>
                     <div class="alert alert-primary m-4" role="alert">
                         <%= flash[:notice] %>
@@ -62,7 +62,7 @@
                 </div>
                 <!-- ここまでがカルーセル --!>
 
-                <div class="d-none d-md-flex col-md-10 justify-content-center align-items-center flex-wrap">
+                <div class="d-none d-md-flex col-md-10 justify-content-center align-items-center h-25 flex-wrap">
                     <% @movies.each do |movie| %>
                         <%= link_to movie_path(movie['id']), class: 'col-md-3' do %>
                             <div class="m-2">
