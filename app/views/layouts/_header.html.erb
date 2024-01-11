@@ -10,8 +10,30 @@
                 <button class="btn btn-outline-danger" type="submit">Search</button>
             </form>
             <div class="d-flex">
+                <!-- ハンバーガーメニュー --!>
+                <div class="container-fluid d-md-none my-2">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                        <div class="offcanvas-header">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="p-0 bg-dark text-danger">
+                                <% @categories.each do |category| %>
+                                    <%= link_to movies_category_path(id: category['id'], name: category['name']), style: "text-decoration: none;" do %>
+                                        <li class="list-unstyled text-light">
+                                            <%= category['name'] %>
+                                        </li>
+                                    <% end %>
+                                <% end %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <!-- アカウントメニュー --!>
-                <div class="nav-item dropdown align-items-center justify-content-center my-3">
+                <div class="nav-item dropdown align-items-center justify-content-center my-3 mx-1">
                     <a class="nav-link dropdown-toggle my-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user fa-lg" style="color: #f5f5f5;"></i>
                     </a>
@@ -23,7 +45,7 @@
                         <% end %>
                         <li>
                             <% if user_signed_in? %>
-                                <%= link_to "ログアウト", logout_path, class: "text-decoration-none dropdown-item" %> 
+                                <%= link_to "ログアウト", logout_path, class: "text-decoration-none dropdown-item" %>
                             <% else %>
                                 <%= link_to "ログイン", new_user_session_path, class: "text-decoration-none dropdown-item" %> 
                             <% end %>
@@ -34,28 +56,6 @@
                             <% end %>
                         </li>
                     </ul>
-                </div>
-
-            <!-- ハンバーガーメニュー --!>
-            <div class="container-fluid d-md-none my-2">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-                    <div class="offcanvas-header">
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="p-0 bg-dark text-danger">
-                            <% @categories.each do |category| %>
-                                <%= link_to movies_category_path(id: category['id'], name: category['name']), style: "text-decoration: none;" do %>
-                                    <li class="list-unstyled text-light">
-                                        <%= category['name'] %>
-                                    </li>
-                                <% end %>
-                            <% end %>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
