@@ -67,10 +67,8 @@ group :test do
   gem "selenium-webdriver"
 end
 
-group :production do
-  # MySQL
-  gem 'mysql2'
-end
+# PostgreSQL
+gem 'pg'
 
 gem 'dotenv-rails'
 
