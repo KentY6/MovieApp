@@ -34,7 +34,8 @@ class MoviesController < ApplicationController
   end
 
   def search
-    @search_word = params[:text]
+    @search_word = URI.encode_www_form_component(params[:text])
+    @result_word = params[:text]
     client = HTTPClient.new
     apiUrl = "#{APIURL}search/movie?api_key=#{ENV['API_KEY']}&language=ja&page=1&query=#{@search_word}"
     responce = client.get(apiUrl)
