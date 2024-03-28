@@ -12,11 +12,11 @@
 <body>  
     <%= render partial: 'layouts/header' %>
     <div class="container-fluid m-0 p-0">
-        <div class="row">
+        <div class="row d-flex">
             <div class="col-2 d-none d-md-block">
                 <%= render partial: 'layouts/sidebar', categories: @categories %> 
             </div>
-            <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">
+            <div class="col-md-10 d-flex flex-column align-items-center overflow-scroll" style="max-height: 800px;">
                 <% if flash[:notice]  %>
                     <div class="alert alert-primary m-4" role="alert">
                         <%= flash[:notice] %>
